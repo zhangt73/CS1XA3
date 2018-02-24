@@ -13,3 +13,7 @@ todos() {
   # To find out how to use exclude flag with grep command 
 }
 :
+directErrors() {
+  ghc -fno-code "*.hs" &> error.log
+}
+
