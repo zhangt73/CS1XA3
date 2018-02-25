@@ -1,16 +1,44 @@
 diff --git a/ProjectAnalyze.sh b/ProjectAnalyze.sh
-index 06f0fe2..5922b24 100644
+index 82d9c37..b31c400 100644
 --- a/ProjectAnalyze.sh
 +++ b/ProjectAnalyze.sh
-@@ -11,7 +11,7 @@ uncommittedChanges() {
+@@ -11,22 +11,34 @@ upToDate() {
+ uncommittedChanges() {
+   git diff > changes.log 
+  # Check the diff using git diff command and direct the out put to changes.log
++  echo "Successful! Check out changes.log to see all uncommittedChanges"
  }
  
+ # Question 3: Put each line from every file of the project with tag TODO in todo.log
+ 
  todos() {
--  grep -r --exclude={} "#TODO" > todo.log
-+  grep -r --exclude={todo.log,ProjectAnalyze.sh} "#TODO" > todo.log
+-  grep -r --exclude={todo.log,ProjectAnalyze.sh} "#TODO" > todo.log
++  grep -r --exclude={todo.log,ProjectAnalyze.sh,changes.log}  "#TODO" > todo.log
+   # Use grep command to filter the lines with TODO tags.
+   # Use --exclude tag to avoid duplication 
    # reference from https://gist.github.com/a1phanumeric/5346170 
-   # To find out how to use exclude flag with grep command 
+-  # For how to use exclude flag with grep command 
++  # For how to use exclude flag with grep command
++  echo "Successful! Check out todo.log to see all TODO tasks" 
  }
+ 
+ # Question 4: Direct all syntax error results in Haskell files to error.log:
+ directErrors() {
+   ghc -fno-code "*.hs" &> error.log
+   # Use &> to direct errors into the target
++  echo "Successful! Check out error.log to see all errors occured in Haskell files"
++}
++
++helpMenu() {
++ printf "1)state ---> Check whether the local repo is up to date with remote
++ \n2)change ---> Direct all uncommitted changes
++\n3)todo ---> Put all task with TODO tages in todo.log
++\n4)error ---> Direct errors of all Haskell files to error.log
++\n5)quit --------------------To quit the program-----------------
++"
+ }
+ 
+ # General control flow of the bash script
 diff --git a/Rdatasets b/Rdatasets
 --- a/Rdatasets
 +++ b/Rdatasets
@@ -18,101 +46,138 @@ diff --git a/Rdatasets b/Rdatasets
 -Subproject commit 39e25770afa9dc503455b4f6fbd3753813866285
 +Subproject commit 39e25770afa9dc503455b4f6fbd3753813866285-dirty
 diff --git a/changes.log b/changes.log
-index 82cf007..e69de29 100644
+index 9f752b7..e69de29 100644
 --- a/changes.log
 +++ b/changes.log
-@@ -1,86 +0,0 @@
+@@ -1,118 +0,0 @@
 -diff --git a/ProjectAnalyze.sh b/ProjectAnalyze.sh
--index e443f61..06f0fe2 100644
+-index 06f0fe2..5922b24 100644
 ---- a/ProjectAnalyze.sh
 -+++ b/ProjectAnalyze.sh
--@@ -2,6 +2,24 @@
-- clear
-- echo "Welcome To Project Analyzer. You are provided with some tools to analyze your current project. Enter the corresponding command to conduct each specific task. If you are not sure where to start with, try type HELP and help will be on your way :) "
+-@@ -11,7 +11,7 @@ uncommittedChanges() {
+- }
 - 
--+upToDate() {
--+  git status
--+}
--+
--+uncommittedChanges() {
--+  git diff > changes.log
--+}
--+
--+todos() {
--+  grep -r --exclude={} "#TODO" > todo.log
--+  # reference from https://gist.github.com/a1phanumeric/5346170 
--+  # To find out how to use exclude flag with grep command 
--+}
--+:
--+directErrors() {
--+  ghc -fno-code "*.hs" &> error.log
--+}
--+
-- ACTION=NOTSET
-- while [ "$ACTION" != "quit" ] 
-- do 
--@@ -9,42 +27,21 @@ do
--     if [ "$ACTION" = "HELP" ] 
--     then 
--          helpMenu
---    elif [ "$ACTION" = "state" ]  
---    then 
--+    elif [ "$ACTION" = "state" ]
--+    then  
--          upToDate
---   elif [ "$ACTION" = "change" ]
---    then
---         uncommittedChanges
---   elif [ "$ACTION" = "change" ]
--+    elif [ "$ACTION" = "change" ]
--     then
--          uncommittedChanges
---   elif [ "$ACTION" = "todo" ]
--+    elif [ "$ACTION" = "todo" ]
--     then
--          todos
---   elif [ "$ACTION" = "error" ]
--+    elif [ "$ACTION" = "error" ]
--     then 
--          directErrors
---   else
--+    elif [ "$ACTION" != "quit" ]
--+    then
--          echo "Invalid Command. Please try another time"
--+    fi 
-- done 
-- 
---          
---
---upToDate() { 
---  git status 
---}
---
---uncommittedChanges() {
---  git diff > changes.log
---}
---
---todos() {
+- todos() {
 --  grep -r --exclude={} "#TODO" > todo.log
---  # reference from https://gist.github.com/a1phanumeric/5346170 
---  # To find out how to use exclude flag with grep command 
---}
---:
---directErrors() {
---  ghc -fno-code "*.hs" &> error.log
---}
---
+-+  grep -r --exclude={todo.log,ProjectAnalyze.sh} "#TODO" > todo.log
+-   # reference from https://gist.github.com/a1phanumeric/5346170 
+-   # To find out how to use exclude flag with grep command 
+- }
 -diff --git a/Rdatasets b/Rdatasets
 ---- a/Rdatasets
 -+++ b/Rdatasets
 -@@ -1 +1 @@
 --Subproject commit 39e25770afa9dc503455b4f6fbd3753813866285
 -+Subproject commit 39e25770afa9dc503455b4f6fbd3753813866285-dirty
+-diff --git a/changes.log b/changes.log
+-index 82cf007..e69de29 100644
+---- a/changes.log
+-+++ b/changes.log
+-@@ -1,86 +0,0 @@
+--diff --git a/ProjectAnalyze.sh b/ProjectAnalyze.sh
+--index e443f61..06f0fe2 100644
+----- a/ProjectAnalyze.sh
+--+++ b/ProjectAnalyze.sh
+--@@ -2,6 +2,24 @@
+-- clear
+-- echo "Welcome To Project Analyzer. You are provided with some tools to analyze your current project. Enter the corresponding command to conduct each specific task. If you are not sure where to start with, try type HELP and help will be on your way :) "
+-- 
+--+upToDate() {
+--+  git status
+--+}
+--+
+--+uncommittedChanges() {
+--+  git diff > changes.log
+--+}
+--+
+--+todos() {
+--+  grep -r --exclude={} "#TODO" > todo.log
+--+  # reference from https://gist.github.com/a1phanumeric/5346170 
+--+  # To find out how to use exclude flag with grep command 
+--+}
+--+:
+--+directErrors() {
+--+  ghc -fno-code "*.hs" &> error.log
+--+}
+--+
+-- ACTION=NOTSET
+-- while [ "$ACTION" != "quit" ] 
+-- do 
+--@@ -9,42 +27,21 @@ do
+--     if [ "$ACTION" = "HELP" ] 
+--     then 
+--          helpMenu
+---    elif [ "$ACTION" = "state" ]  
+---    then 
+--+    elif [ "$ACTION" = "state" ]
+--+    then  
+--          upToDate
+---   elif [ "$ACTION" = "change" ]
+---    then
+---         uncommittedChanges
+---   elif [ "$ACTION" = "change" ]
+--+    elif [ "$ACTION" = "change" ]
+--     then
+--          uncommittedChanges
+---   elif [ "$ACTION" = "todo" ]
+--+    elif [ "$ACTION" = "todo" ]
+--     then
+--          todos
+---   elif [ "$ACTION" = "error" ]
+--+    elif [ "$ACTION" = "error" ]
+--     then 
+--          directErrors
+---   else
+--+    elif [ "$ACTION" != "quit" ]
+--+    then
+--          echo "Invalid Command. Please try another time"
+--+    fi 
+-- done 
+-- 
+---          
+---
+---upToDate() { 
+---  git status 
+---}
+---
+---uncommittedChanges() {
+---  git diff > changes.log
+---}
+---
+---todos() {
+---  grep -r --exclude={} "#TODO" > todo.log
+---  # reference from https://gist.github.com/a1phanumeric/5346170 
+---  # To find out how to use exclude flag with grep command 
+---}
+---:
+---directErrors() {
+---  ghc -fno-code "*.hs" &> error.log
+---}
+---
+--diff --git a/Rdatasets b/Rdatasets
+----- a/Rdatasets
+--+++ b/Rdatasets
+--@@ -1 +1 @@
+---Subproject commit 39e25770afa9dc503455b4f6fbd3753813866285
+--+Subproject commit 39e25770afa9dc503455b4f6fbd3753813866285-dirty
+-diff --git a/todo.log b/todo.log
+-index cba3ae8..ce0f5ea 100644
+---- a/todo.log
+-+++ b/todo.log
+-@@ -1,3 +1,2 @@
+- changes.log:+  grep -r --exclude={} "#TODO" > todo.log
+- changes.log:-  grep -r --exclude={} "#TODO" > todo.log
+--ProjectAnalyze.sh:  grep -r --exclude={} "#TODO" > todo.log
 diff --git a/todo.log b/todo.log
-index cba3ae8..ce0f5ea 100644
+index b0d30f4..8836cb4 100644
 --- a/todo.log
 +++ b/todo.log
-@@ -1,3 +1,2 @@
- changes.log:+  grep -r --exclude={} "#TODO" > todo.log
- changes.log:-  grep -r --exclude={} "#TODO" > todo.log
--ProjectAnalyze.sh:  grep -r --exclude={} "#TODO" > todo.log
+@@ -1,7 +1 @@
+-changes.log:-  grep -r --exclude={} "#TODO" > todo.log
+-changes.log:+  grep -r --exclude={todo.log,ProjectAnalyze.sh} "#TODO" > todo.log
+-changes.log:-+  grep -r --exclude={} "#TODO" > todo.log
+-changes.log:--  grep -r --exclude={} "#TODO" > todo.log
+-changes.log: changes.log:+  grep -r --exclude={} "#TODO" > todo.log
+-changes.log: changes.log:-  grep -r --exclude={} "#TODO" > todo.log
+-changes.log:-ProjectAnalyze.sh:  grep -r --exclude={} "#TODO" > todo.log
++Binary file .ProjectAnalyze.sh.swp matches
