@@ -34,16 +34,19 @@ directErrors() {
 
 # Extra Feature: display a list of biggest files/dirs in the current dir
 biggest() {
-  read -p "Please indicate how many files/dirs do you want to be in the list by typing a single number: " NUM
-  du -hs * | sort -rh | head -$NUM
-
+  read -p "Please indicate how many files/dirs do you want to be in the list by typing a single number: " "NUM"
+  du -hs * | sort -rh | head -"$NUM"
+  # list the size of all dirs in current dir, sort through sort command and list only the number of head given by the user
+  # Reference for du command : http://www.linfo.org/du.html
+  # Reference for head command: http://www.linfo.org/head.html
 } 
 helpMenu() {
  printf "1)state ---> Check whether the local repo is up to date with remote
  \n2)change ---> Direct all uncommitted changes
 \n3)todo ---> Put all task with TODO tages in todo.log
 \n4)error ---> Direct errors of all Haskell files to error.log
-\n5)quit --------------------To quit the program-----------------
+\n5)list ---> List biggest files/dirs in the current directory
+\n6)quit --------------------To quit the program-----------------
 "
 }
 
@@ -68,7 +71,7 @@ do
     elif [ "$ACTION" = "error" ]
     then 
          directErrors
-    elif [ "$ACTION" != "list" ]
+    elif [ "$ACTION" = "list" ]
     then
          biggest
     elif [ "$ACTION" != "quit" ]
