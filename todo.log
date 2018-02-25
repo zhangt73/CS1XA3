@@ -1,3 +1,7 @@
-changes.log:+  grep -r --exclude={} "#TODO" > todo.log
 changes.log:-  grep -r --exclude={} "#TODO" > todo.log
-ProjectAnalyze.sh:  grep -r --exclude={} "#TODO" > todo.log
+changes.log:+  grep -r --exclude={todo.log,ProjectAnalyze.sh} "#TODO" > todo.log
+changes.log:-+  grep -r --exclude={} "#TODO" > todo.log
+changes.log:--  grep -r --exclude={} "#TODO" > todo.log
+changes.log: changes.log:+  grep -r --exclude={} "#TODO" > todo.log
+changes.log: changes.log:-  grep -r --exclude={} "#TODO" > todo.log
+changes.log:-ProjectAnalyze.sh:  grep -r --exclude={} "#TODO" > todo.log
