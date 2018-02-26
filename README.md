@@ -2,6 +2,7 @@
 ---
 ## Overview
 The following is the documentation for the bash script assignment for CS1XA3 at McMaster University. The script demonstrate a list of functionalities that could be used to conduct analysis for your projects. When you start running the script, it will ask for your instructions. Each command you type correspond to one task to be done. In next section, I will go over all the functionalities and show how they could be used.
+
 ---
 ## state
 This function is used to check if your local repo is up to date with the remote on github. It will show you the current status of your local repo.
