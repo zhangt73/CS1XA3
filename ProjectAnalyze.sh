@@ -17,7 +17,7 @@ uncommittedChanges() {
 # Question 3: Put each line from every file of the project with tag TODO in todo.log
 
 todos() {
-  grep -r --exclude={todo.log,ProjectAnalyze.sh,changes.log}  "#TODO" > todo.log
+  grep -r --exclude={todo.log,ProjectAnalyze.sh,changes.log,README.md}  "#TODO" > todo.log
   # Use grep command to filter the lines with TODO tags.
   # Use --exclude tag to avoid duplication 
   # reference from https://gist.github.com/a1phanumeric/5346170 
@@ -27,7 +27,7 @@ todos() {
 
 # Question 4: Direct all syntax error results in Haskell files to error.log:
 directErrors() {
-  find . -name "*.hs" -type f -print0 | xargs -0 ghc -fno-code &> errora.log 
+  find . -name "*.hs" -type f -print0 | xargs -0 ghc -fno-code &> error.log 
   # use find to find all Haskell files in current directory and then use xargs to run each onea
   # Use &> to direct errors into the target file
   echo "Successful! Check out error.log to see all errors occured in Haskell files"
