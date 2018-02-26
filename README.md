@@ -26,7 +26,6 @@ This extra feature of the script allow users to check the biggest file/dir in cu
 If you get bored, simply type quit and the script will exit immediately
 
 ## HELP
-
 If you get confused, simply call HELP and help menu will show up to guide you how to use this script.
 
 
