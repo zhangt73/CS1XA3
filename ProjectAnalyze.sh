@@ -27,8 +27,9 @@ todos() {
 
 # Question 4: Direct all syntax error results in Haskell files to error.log:
 directErrors() {
-  ghc -fno-code "*.hs" &> error.log
-  # Use &> to direct errors into the target
+  find . -name "*.hs" -type f -print0 | xargs -0 ghc -fno-code &> errora.log 
+  # use find to find all Haskell files in current directory and then use xargs to run each onea
+  # Use &> to direct errors into the target file
   echo "Successful! Check out error.log to see all errors occured in Haskell files"
 }
 
