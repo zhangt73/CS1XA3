@@ -1,7 +1,6 @@
 # Project Analyze Script
 ---
 ## Overview
-
 The following is the documentation for the bash script assignment for CS1XA3 at McMaster University. The script demonstrate a list of functionalities that could be used to conduct analysis for your projects. When you start running the script, it will ask for your instructions. Each command you type correspond to one task to be done. In next section, I will go over all the functionalities and show how they could be used.
 ---
 ## state
@@ -12,14 +11,16 @@ This function will put all uncommitted changes of your local repo into file chan
 
 ## todo
 This function will put each line from every file of the project with tag #TODO in todo.log where you can view all of them at once.
-### References
-I look up the grep --exclude flag from this source [here](https://gist.github.com/a1phanumeric/5346170) 
+
+> I look up the grep --exclude flag from this source [here](https://gist.github.com/a1phanumeric/5346170) 
 ## error
 This function will look up all Haskell files in your current directory and put all run time syntax error into error.log
 
 ## list
-This extra feature of the script allow users to check the biggest file/dir in terms of how much space they occupy. The user could customize the tool to specify how many files/dir they want to see in the list. The default should be 10(when actual files/dir exceed 10)
+This extra feature of the script allow users to check the biggest file/dir in current dir in terms of how much space they occupy. The user could customize the tool by specifing how many files/dir they want to see in the list. The default should be 10(when actual files/dir exceed 10)
 
+> Reference for du command : [here](http://www.linfo.org/du.html)
+> Reference for head command: [here](http://www.linfo.org/head.html) 
 ## quit
 If you get bored, simply type quit and the script will exit immediately
 
