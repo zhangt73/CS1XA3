@@ -4,7 +4,8 @@ echo "Welcome To Project Analyzer. You are provided with some tools to analyze y
 
 # Question 1 : Inform if your local repo is up to date with remote repo
 upToDate() {
-  git status
+  git status -u no
+ # hide the display of uncomitted files to only show if the local repo is up to date
 }
 
 # Question 2: Puts all uncommitted changes in changes.log
