@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>McMaster GPA Converter</title> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="main.css">	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+     
+</head>
+<body>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-secondary" id="exampleModalLongTitle">Usage</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-info">
+      	confused about your GPA at McMaster? Simpily type your current cumulative GPA into the text box (decimal allowed). <br>
+      	<br>Hit ENTER to clear the output</br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10 center">
+				<h1 class="d-inline display-4 text-center">McMaster GPA Converter </h1> 
+				<button type="button" class="d-inline mb-3 btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Help?</button>
+				<form>
+					<div class="form-group">
+						<input id="input" type="number" step="0.1" class="form-control form-control-lg" placeholder="Enter your current McMaster GPA">
+					</div>
+				</form>
+          <div id="output">
+				<div class="card bg-primary mb-3">
+					<div class="card-body">
+						<h4>4.0 Scale:</h4> 
+						<div id="4output"></div>
+					</div>  
+				</div>
+				<div class="card bg-success mb-3">
+					<div class="card-body ">
+						<h4>Aplha Scale:</h4>
+						<div id="aplhaOutput"></div>
+					</div>
+				</div>
+				<div class="card bg-info mb-3">
+					<div class="card-body ">
+						<h4>Your grade is between :</h4>
+						<div id="rangeOutput"></div>
+					</div>
+				</div> 	
+
+			</div>
+		</div>	
+	  </div>
+</div>
+
+	<script type="text/javascript" src="main.js" ></script>
+
+</body>
+</html>
