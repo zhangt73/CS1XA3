@@ -7,10 +7,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Indie+Flower" rel="stylesheet">	
+
     
      
 </head>
 <body>
+ 
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -35,11 +38,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-10 center">
-				<h1 class="d-inline display-4 text-center">McMaster GPA Converter </h1> 
+				<h1 style="font-family: 'Indie Flower', cursive;" class="d-inline display-4 text-center">McMaster GPA Converter </h1> 
 				<button type="button" class="d-inline mb-3 btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Help?</button>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <button class="btn btn-secondary dropdown-toggle" id="modeButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Calculation Mode</button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Numeric</a>
+      <div role="separator" class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Alpha</a>
+    </div>
+  </div>
+  <input type="text" id="submitText" class="form-control" aria-label="Text input with dropdown button" placeholder="Select calculation Mode First! Then enter your marks seperated by spaces">
+  <button class="btn btn-secondary" id="submitButton" type="button">Calculate</button>
+</div>
+
 				<form>
 					<div class="form-group">
-						<input id="input" type="number" step="0.1" class="form-control form-control-lg" placeholder="Enter your current McMaster GPA">
+						<input id="input" type="number" step="0.1" class="form-control form-control-lg" placeholder="If you wish to enter your cumulative GPA directly, type here">
 					</div>
 				</form>
           <div id="output">
