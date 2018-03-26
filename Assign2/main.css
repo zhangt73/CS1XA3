@@ -6,8 +6,12 @@ body {
 	background-image: url(https://i.stack.imgur.com/p9mUO.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
+	font-size: 30px;
 }
 
+.shadow {
+ box-shadow: 0 8px 6px -6px black; 
+}
 
 .container {
 	width: 60%; 
@@ -24,4 +28,9 @@ button:visited{
 .card {
 	background-image: url(http://1.bp.blogspot.com/-ZRUtDf9_4O8/UwTSDHQYz-I/AAAAAAAAAI4/rmBmo79LINs/s1600/bg-screenshot.jpg);
 	background-repeat: no-repeat;
+	border:0;
+}
+
+.modal-body {
+	font-size: 20px; 
 }

@@ -24,13 +24,9 @@ var update = function(gpa) {
    	var alpha = convert(gpa)[1]
    	var range = convert(gpa)[2]
 
-   	if(scaleFour == null || alpha == null || range == null) {
-   	 		// error
-   	 	}else {
-   	 		output1.innerHTML = scaleFour
-    	    output2.innerHTML = alpha
-    	    output3.innerHTML = range
-   	 	}
+   	output1.innerHTML = scaleFour
+   	output2.innerHTML = alpha
+   	output3.innerHTML = range
 }
 
 var convert = function(gpa) { 
@@ -139,18 +135,20 @@ submit.addEventListener('click',function(e){
 	    var markStr = submitText.value
 	    	if (markStr !==null) {
 	    		var gpaNum = parseMarks(mode, markStr)
+	    	if(mode === undefined) {
+	    		alert('Please select the calculation mode first') 
+	    		return
+	    	}
 			if (gpaNum == null) {
 				inputError = true 
-			}else {
-		   		console.log(gpaNum)
+			}else { 
 		   		if(inputError) {
-		   			alert("Input Error Dected")
+		   			alert("Invalid input. Check help page for more info.")
 		   			inputError = false
 		   		}else {
 		   			update(gpaNum)
-	   		    }
-		   		
-			}
+	   		    } 
+			} 
 	    }
 		
 	}

@@ -24,9 +24,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body text-info">
-      	confused about your GPA at McMaster? Simpily type your current cumulative GPA into the text box (decimal allowed). <br>
-      	<br>Hit ENTER to clear the output</br>
+      <div class="modal-body text-info">To get your GPA result in several common scales, you can type in your cumulative GPA at McMaster(12 scaled) directly.
+       <br> If you are unsure about your cumulative GPA, use the calculator provided to conveniently get your result. 
+       <br>
+       <p class="text-danger">
+       <br>
+       <strong>Numeric Mode:</strong> You can type your marks seperated by a single space. eg.11 12 9 8 7 (Do not leave a space after your final mark!) 
+       <br>
+       <strong>Alpha Mode:</strong> You can type your alpha scaled marks seperated by a single space. eg.A- B+ C- D+ F
+       <br> 
+       <p class="text-info"> Made by Tianyi Zhang @ CS1XA3</p>
+      </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -39,7 +47,7 @@
 		<div class="row">
 			<div class="col-lg-10 center">
 				<h1 style="font-family: 'Indie Flower', cursive;" class="d-inline display-4 text-center">McMaster GPA Converter </h1> 
-				<button type="button" class="d-inline mb-3 btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Help?</button>
+				<button type="button" class="d-inline mb-3 btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Help?</button> 
 
   <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -48,9 +56,9 @@
       <a class="dropdown-item" href="#">Numeric</a>
       <div role="separator" class="dropdown-divider"></div>
       <a class="dropdown-item" href="#">Alpha</a>
-    </div>
+    </div> 
   </div>
-  <input type="text" id="submitText" class="form-control" aria-label="Text input with dropdown button" placeholder="Select calculation Mode First! Then enter your marks seperated by spaces">
+  <input type="text" id="submitText" class="form-control" aria-label="Text input with dropdown button" placeholder="Enter your mark entries here for calculation"> 
   <button class="btn btn-secondary" id="submitButton" type="button">Calculate</button>
 </div>
 
@@ -59,30 +67,32 @@
 						<input id="input" type="number" step="0.1" class="form-control form-control-lg" placeholder="If you wish to enter your cumulative GPA directly, type here">
 					</div>
 				</form>
+
           <div id="output">
-				<div class="card bg-primary mb-3">
+				<div class="card shadow bg-primary mb-3 text-center">
 					<div class="card-body">
-						<h4>4.0 Scale:</h4> 
+						<h5>4.0 Scale:</h5> 
 						<div id="4output"></div>
 					</div>  
 				</div>
-				<div class="card bg-success mb-3">
+				<div class="card shadow bg-success mb-3 text-center">
 					<div class="card-body ">
-						<h4>Aplha Scale:</h4>
+						<h5>Aplha Level:</h5>
 						<div id="aplhaOutput"></div>
 					</div>
 				</div>
-				<div class="card bg-info mb-3">
+				<div class="card shadow bg-info mb-3 text-center">
 					<div class="card-body ">
-						<h4>Your grade is between :</h4>
+						<h5>Your grade is between :</h5>
 						<div id="rangeOutput"></div>
 					</div>
 				</div> 	
 
 			</div>
-		</div>	
+		</div>	 
 	  </div>
-</div>
+	     
+</div> 
 
 	<script type="text/javascript" src="main.js" ></script>
 
