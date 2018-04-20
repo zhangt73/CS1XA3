@@ -69,7 +69,7 @@ class DiffExpr a where
         eval: .....
         simplify : ....
         partDiff : ....
--}
+-} 
 instance (Floating a, Eq a) => DiffExpr a where
   {-Evaluation by pattern matching-}
   eval vrs (Neg e) = (-1) * (eval vrs e)
@@ -172,12 +172,6 @@ instance (Floating a, Eq a) => DiffExpr a where
                                                       Nothing -> Exponent (simplify vrs (Var x)) (simplify vrs (Var y))
                                           Nothing -> Exponent (simplify vrs (Var x)) (simplify vrs (Var y)) 
   simplify vrs (Exponent e1 e2) = Exponent (simplify vrs e1) (simplify vrs e2) 
-
-
-
-
-
-
 
 {- Ref: https://github.com/barskyn/CS1XA3/blob/master/Assign3/assign3/ExprDiff.hs
         https://github.com/chenc118/CS1XA3/blob/master/Assign3/ExprDiff.hs    -}

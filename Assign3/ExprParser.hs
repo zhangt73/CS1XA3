@@ -1,9 +1,9 @@
-module ExprParser (parseExprD,parseExprF) where
+module ExprParser  where
 
 import ExprType
+import ExprPretty
 import Text.Parsec
-import Text.Parsec.String
-
+import Text.Parsec.String 
 
 {- parseExpr*
 ------------------------------------
@@ -11,19 +11,149 @@ import Text.Parsec.String
          ..........    
   - and parses an expression of Expr *
 -}
+
+-- Parse simple binary operations
+binOps :: Parser (Expr a -> Expr a-> Expr a)
+binOps = (do { symbol "+"; return Add })
+     <|> do { symbol "*"; return Mult } 
+     <|> do { symbol "^"; return Exponent} 
+
+--  Parse Uniary operations defined in our expression type 
+uniOps :: Parser (Expr a -> Expr a)
+uniOps = (do { string "e"; return Exp })
+    <|> do { string "ln"; return Ln } 
+    <|> do { string "cos"; return Cos}
+    <|> do { string "sin"; return Sin} 
+
+
+{-This parser parse string to Expr Integer. Support only binary operations such as +,*
+     eg. "2+3" => ((val 2)) !+ ((val 3)) -}
+parseExprI :: String -> Expr Integer 
+parseExprI ss = case parse setexprI  "" ss of
+                Left err  -> error "Invalid Input"
+                Right expr -> expr 
+
+setexprI :: Parser (Expr Integer)
+setexprI = (termI `chainl1` binOps) 
+
+-- Term: either a variable or an constant
+termI :: Parser (Expr Integer)
+termI = try numI <|> var
+
+-- Parse a single integer constant
+numI :: Parser (Expr Integer)
+numI = do {i <- integer;
+               return (Const i)}
+-- Parse a single variable composed of letters 
+var :: Parser (Expr a)
+var = do { s <- many1 letter;
+                return (Var s)} 
+
+
+{- Similiar to the parser above, the only diff is that this one parses Expr Int value
+   Usage is the same-}
+parseExprInt :: String -> Expr Int 
+parseExprInt ss = case parse setexprInt  "" ss of
+                 Left err  -> error "This is invalid input for parsing integers"
+                 Right expr -> expr 
+
+setexprInt :: Parser (Expr Int)
+setexprInt = (termInt `chainl1` binOps) 
+
+termInt :: Parser (Expr Int)
+termInt = try numParseInt <|> var
+
+ {- This parser supports uniary operations like Ln, Sin, Cos defined in our expr type
+      eg. "cos 2" => (Cosine(val 2)) -}
+
+ {-Reference: github of barskyn-}
+parseExprIntG :: String -> Expr Int
+parseExprIntG ss = case parse setexprIntG "" ss of
+                Left err  -> error "This is invalid input for parsing variable strings"
+                Right expr -> expr 
+
+
+setexprIntG :: Parser (Expr Int)
+setexprIntG = let
+            uniarys = do {op <- uniOps;
+                                    spaces;
+                                    term <- termIntG;
+                                    spaces;
+                                    return (op term)}
+            in try uniarys <|> termIntG
+
+termIntG :: Parser (Expr Int)
+termIntG = try numParseInt <|> var
+
+numParseInt :: Parser (Expr Int)
+numParseInt = do {i <- int;
+               return (Const i)}
+ 
+{-Parser that parse to Expr Double (binary operitions)
+   eg. "2.2*3.3+0.09" => (((val 2.2)) !* ((val 3.3))) !+ ((val 9.0e-2))-}
 parseExprD :: String -> Expr Double
-parseExprD ss = case parse exprD "" ss of
-                  Left err   -> error $ show err
-                  Right expr -> expr
+parseExprD ss = case parse setexprD  "" ss of
+                Left err  -> error "This is invalid input for parsing doubles"
+                Right expr -> expr 
 
-parseExprF :: String -> Expr Float
-parseExprF ss = case parse exprF "" ss of
-                  Left err   -> error $ show err
-                  Right expr -> expr
+setexprD :: Parser (Expr Double)
+setexprD = termD `chainl1` binOps
 
-exprD :: Parser (Expr Double)
-exprD = error "define me!" -- #TODO complete parser
+termD :: Parser (Expr Double)
+termD = try numParseD <|> var
 
-exprF :: Parser (Expr Float)
-exprF = error "define me!" -- #TODO complete parser
+numParseD :: Parser (Expr Double)
+numParseD = do {i <- double;
+                return (Const i)}
 
+
+{-Utility Combinators-} 
+parens :: Parser a -> Parser a
+parens p = do { symbol "(";
+                cs <- p;
+                symbol ")"; 
+                return cs }
+
+{-Parse a single symbol -}
+symbol :: String -> Parser String
+symbol ss = let
+    symbol' :: Parser String
+    symbol' = do { ss' <- string ss;
+                    return ss' }
+    in try symbol'
+
+digits :: Parser String
+digits = many1 digit
+
+negDigits :: Parser String
+negDigits = do { neg <- symbol "-" ;
+                    dig <- digits ;
+                    return (neg ++ dig) }
+
+
+integer :: Parser Integer
+integer = fmap read $ try negDigits <|> digits
+
+int :: Parser Int
+int = fmap read $ try negDigits <|> digits
+
+-- parse something like 22.22 => "22.22" 
+doubleDigits :: Parser String
+doubleDigits = do { ds <- try negDigits <|> digits ;
+                    rs <- try decimalDigits <|> return "" ;
+                    return $ ds ++ rs }
+
+
+{-This parses decial digits which are split up by a ".". -}
+decimalDigits :: Parser String
+decimalDigits = do { d <- char '.' ;
+                     rm <- digits ;
+                     return $ d:rm }
+ 
+
+{-Specifically parses instance of doubles-}
+double :: Parser Double
+double = fmap read $ doubleDigits
+
+float:: Parser Float
+float = fmap read $ doubleDigits
