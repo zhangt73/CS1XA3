@@ -3,4 +3,8 @@
 #### Provides functionality to partially differentiate the experssion datatype and try to normalize the experssion as best as I can.
 #### Also includes a parser that could be used to parse string into the defined experssion value.
 
-
+#### The source codes contains the following files:
+*  ExprType.hs : Contains the definition of the math experssion datatype and getVars method for retriving variable values
+*  ExprPretty.hs : Define the show typeclass for the newly defined experission type so that it will output nicely formatted string as the output
+*  ExprParser.hs : Define a few parser that could parse certain string value into the desired math experssion datatype.(Refer to the table below for format instructions)
+*  ExprDiff.hs : Define the simplification of the experssion datatype and its differentation function.
