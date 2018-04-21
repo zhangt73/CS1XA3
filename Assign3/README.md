@@ -13,7 +13,12 @@ String | Parsed Value
 cos 2  | (Cosine(val 2))
 2.2*3.3+0.09 | (((val 2.2)) !* ((val 3.3))) !+ ((val 9.0e-2))-}
 2^3    | ((val 2)!^(val 3))
-ln 100 | (Ln(val 100))       
+ln 100 | (Ln(val 100)) 
+
+First Header | Second Header
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
 
 Content in the first column | Content in the second column 
 *  ExprDiff.hs : Define the simplification of the experssion datatype and its differentation function.
