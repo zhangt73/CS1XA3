@@ -17,11 +17,11 @@ cos2 | (Cosine(val 2))
 ln 100 | (Ln(val 100)) 
 ------------------------
 ##### Each parser in the ExprParser.hs parse is different in terms of the type of parsed value and the operations that are available to parse
-     * parseExprI : parse String to Expr Integer. Supports binary operations only (+/*/^)
-     * parseExprInt :  parse String to Expr Int. Supports binary operations only (+/*/^)
-     * parseExprInt : parse String to Expr Int. Support uniary operations: cos, sin , ln..
-     * parseExprD :  parse String to Expr Double. Supports binary operations only (+/*/^) 
-    > Some improvements to be considered is to integrate the functionalities into a big parser so that it could handle more types/ operations.
+* parseExprI : parse String to Expr Integer. Supports binary operations only (+/*/^)
+* parseExprInt :  parse String to Expr Int. Supports binary operations only (+/*/^)
+* parseExprInt : parse String to Expr Int. Support uniary operations: cos, sin , ln..
+* parseExprD :  parse String to Expr Double. Supports binary operations only (+/*/^) 
+> Some improvements to be considered is to integrate the functionalities into a big parser so that it could handle more types/ operations.
 *  ExprDiff.hs : Define the simplification of the experssion datatype and its differentation function.
 
 > References: github of barskyn; github of Chenz;
