@@ -49,8 +49,6 @@ class DiffExpr a where
   val x = Const x
   var :: String -> Expr a
   var x = Var x 
-  neg :: Expr a -> Expr a
-  neg x = Const (eval (Map.fromList []) (Neg x))
 
   (!^) :: Expr a -> Expr a -> Expr a
   (!^) e1 e2 = simplify (Map.fromList []) $ Exponent e1 e2

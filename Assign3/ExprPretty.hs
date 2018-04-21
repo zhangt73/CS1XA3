@@ -14,5 +14,6 @@ instance Show a => Show (Expr a) where
   show (Sin e1)  = parens $ "Sine"++(show e1)
   show (Ln e1)   = parens $ "Ln"++(show e1)
   show (Exp e1) = parens $ "e^"++(show e1)
-  show (Exponent e1 e2) = parens $ (show e1)++"!^"++(show e2) 
-     
+  show (Exponent e1 e2) = parens $ (show e1)++"!^"++(show e2)
+
+   

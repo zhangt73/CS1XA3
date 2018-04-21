@@ -29,12 +29,12 @@ uniOps = (do { string "e"; return Exp })
 {-This parser parse string to Expr Integer. Support only binary operations such as +,*
      eg. "2+3" => ((val 2)) !+ ((val 3)) -}
 parseExprI :: String -> Expr Integer 
-parseExprI ss = case parse setexprI  "" ss of
+parseExprI ss = case parse exprI  "" ss of
                 Left err  -> error "Invalid Input"
                 Right expr -> expr 
 
-setexprI :: Parser (Expr Integer)
-setexprI = (termI `chainl1` binOps) 
+exprI :: Parser (Expr Integer)
+exprI = (termI `chainl1` binOps) 
 
 -- Term: either a variable or an constant
 termI :: Parser (Expr Integer)
@@ -53,28 +53,27 @@ var = do { s <- many1 letter;
 {- Similiar to the parser above, the only diff is that this one parses Expr Int value
    Usage is the same-}
 parseExprInt :: String -> Expr Int 
-parseExprInt ss = case parse setexprInt  "" ss of
-                 Left err  -> error "This is invalid input for parsing integers"
+parseExprInt ss = case parse exprInt  "" ss of
+                 Left err  -> error "Invalid input"
                  Right expr -> expr 
 
-setexprInt :: Parser (Expr Int)
-setexprInt = (termInt `chainl1` binOps) 
+exprInt :: Parser (Expr Int)
+exprInt = (termInt `chainl1` binOps) 
 
 termInt :: Parser (Expr Int)
 termInt = try numParseInt <|> var
 
  {- This parser supports uniary operations like Ln, Sin, Cos defined in our expr type
       eg. "cos 2" => (Cosine(val 2)) -}
-
- {-Reference: github of barskyn-}
+ 
+ {-Reference: github of barskyn-} 
 parseExprIntG :: String -> Expr Int
-parseExprIntG ss = case parse setexprIntG "" ss of
-                Left err  -> error "This is invalid input for parsing variable strings"
+parseExprIntG ss = case parse exprIntG "" ss of
+                Left err  -> error "Invalid input"
                 Right expr -> expr 
 
-
-setexprIntG :: Parser (Expr Int)
-setexprIntG = let
+exprIntG :: Parser (Expr Int)
+exprIntG = let
             uniarys = do {op <- uniOps;
                                     spaces;
                                     term <- termIntG;
@@ -92,12 +91,12 @@ numParseInt = do {i <- int;
 {-Parser that parse to Expr Double (binary operitions)
    eg. "2.2*3.3+0.09" => (((val 2.2)) !* ((val 3.3))) !+ ((val 9.0e-2))-}
 parseExprD :: String -> Expr Double
-parseExprD ss = case parse setexprD  "" ss of
-                Left err  -> error "This is invalid input for parsing doubles"
+parseExprD ss = case parse exprD  "" ss of
+                Left err  -> error "Invalid input"
                 Right expr -> expr 
 
-setexprD :: Parser (Expr Double)
-setexprD = termD `chainl1` binOps
+exprD :: Parser (Expr Double)
+exprD = termD `chainl1` binOps
 
 termD :: Parser (Expr Double)
 termD = try numParseD <|> var
@@ -108,6 +107,7 @@ numParseD = do {i <- double;
 
 
 {-Utility Combinators-} 
+{-Provides some utility parsing for common usage-}
 parens :: Parser a -> Parser a
 parens p = do { symbol "(";
                 cs <- p;
@@ -149,11 +149,6 @@ decimalDigits :: Parser String
 decimalDigits = do { d <- char '.' ;
                      rm <- digits ;
                      return $ d:rm }
- 
 
-{-Specifically parses instance of doubles-}
 double :: Parser Double
 double = fmap read $ doubleDigits
-
-float:: Parser Float
-float = fmap read $ doubleDigits
