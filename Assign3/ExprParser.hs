@@ -1,3 +1,12 @@
+{--|
+Module : ExprParser
+Description: Contains parser that could be used to parse string to desired experssion datatype
+Copyright: (c) Tianyi Zhang @2018
+License : WTFPL 
+Maintainer : zhangt73@mcmaster.ca
+Stability : experimental
+Portability : POSIX
+-}
 module ExprParser  where
 
 import ExprType
@@ -12,13 +21,13 @@ import Text.Parsec.String
   - and parses an expression of Expr *
 -}
 
--- Parse simple binary operations
+-- | Parse simple binary operations
 binOps :: Parser (Expr a -> Expr a-> Expr a)
 binOps = (do { symbol "+"; return Add })
      <|> do { symbol "*"; return Mult } 
      <|> do { symbol "^"; return Exponent} 
 
---  Parse Uniary operations defined in our expression type 
+-- | Parse Uniary operations defined in our expression type 
 uniOps :: Parser (Expr a -> Expr a)
 uniOps = (do { string "e"; return Exp })
     <|> do { string "ln"; return Ln } 
@@ -26,8 +35,7 @@ uniOps = (do { string "e"; return Exp })
     <|> do { string "sin"; return Sin} 
 
 
-{-This parser parse string to Expr Integer. Support only binary operations such as +,*
-     eg. "2+3" => ((val 2)) !+ ((val 3)) -}
+-- | This parser parse string to Expr Integer. Support only binary operations such as +,* eg. "2+3" => ((val 2)) !+ ((val 3)) 
 parseExprI :: String -> Expr Integer 
 parseExprI ss = case parse exprI  "" ss of
                 Left err  -> error "Invalid Input"
@@ -36,22 +44,21 @@ parseExprI ss = case parse exprI  "" ss of
 exprI :: Parser (Expr Integer)
 exprI = (termI `chainl1` binOps) 
 
--- Term: either a variable or an constant
+-- | Term: either a variable or an constant
 termI :: Parser (Expr Integer)
 termI = try numI <|> var
 
--- Parse a single integer constant
+-- | Parse a single integer constant
 numI :: Parser (Expr Integer)
 numI = do {i <- integer;
                return (Const i)}
--- Parse a single variable composed of letters 
+-- | Parse a single variable composed of letters 
 var :: Parser (Expr a)
 var = do { s <- many1 letter;
                 return (Var s)} 
 
 
-{- Similiar to the parser above, the only diff is that this one parses Expr Int value
-   Usage is the same-}
+-- |Similiar to the parser above, the only diff is that this one parses Expr Int value Usage is the same
 parseExprInt :: String -> Expr Int 
 parseExprInt ss = case parse exprInt  "" ss of
                  Left err  -> error "Invalid input"
@@ -63,8 +70,7 @@ exprInt = (termInt `chainl1` binOps)
 termInt :: Parser (Expr Int)
 termInt = try numParseInt <|> var
 
- {- This parser supports uniary operations like Ln, Sin, Cos defined in our expr type
-      eg. "cos 2" => (Cosine(val 2)) -}
+-- | This parser supports uniary operations like Ln, Sin, Cos defined in our expr type eg. "cos 2" => (Cosine(val 2))
  
  {-Reference: github of barskyn-} 
 parseExprIntG :: String -> Expr Int
@@ -88,8 +94,7 @@ numParseInt :: Parser (Expr Int)
 numParseInt = do {i <- int;
                return (Const i)}
  
-{-Parser that parse to Expr Double (binary operitions)
-   eg. "2.2*3.3+0.09" => (((val 2.2)) !* ((val 3.3))) !+ ((val 9.0e-2))-}
+-- | Parser that parse to Expr Double (binary operitions) eg. "2.2*3.3+0.09" => (((val 2.2)) !* ((val 3.3))) !+ ((val 9.0e-2))
 parseExprD :: String -> Expr Double
 parseExprD ss = case parse exprD  "" ss of
                 Left err  -> error "Invalid input"
@@ -144,7 +149,7 @@ doubleDigits = do { ds <- try negDigits <|> digits ;
                     return $ ds ++ rs }
 
 
-{-This parses decial digits which are split up by a ".". -}
+-- | This parses decial digits which are split up by a ".". 
 decimalDigits :: Parser String
 decimalDigits = do { d <- char '.' ;
                      rm <- digits ;

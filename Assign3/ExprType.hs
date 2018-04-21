@@ -1,3 +1,10 @@
+{-|
+Module : ExprType
+Description : Contains all the definitions of every datatypes
+Copyright : (c) Tianyi Zhang @2018
+Maintainer : zhangt73@mcmaster.ca
+Stability : experimental
+-}
 module ExprType where
 import Data.List 
 {- Expression Datatype

@@ -1,3 +1,10 @@
+{-|
+Module : ExprPretty
+Description : make nicely formatted string for the newly defined experssion datatype
+Copyright : (c) Tianyi Zhang  @2018
+Maintainer : zhangt73@mcmaster.ca
+Stability : experimental
+-}
 module ExprPretty where 
 
 import ExprType
